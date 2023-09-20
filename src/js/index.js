@@ -15,7 +15,7 @@ let searchQuery = '';
 gallery.innerHTML = '';
 let simpleLightbox = new SimpleLightbox ('.photo-card a');
 registerForm.addEventListener('submit', createImgCards);
-// loadMoreBtn.addEventListener('click', onMoresearch);
+loadMoreBtn.addEventListener('click', onMoresearch);
 
 async function createImgCards(event) {
   event.preventDefault();
@@ -44,20 +44,20 @@ async function createImgCards(event) {
     console.log(error.message);
   }
 }
-// async function onMoresearch(event) {
-//   page +=1;
+async function onMoresearch(event) {
+  page +=1;
 
-//   try {
-//     const data = await fetchImage(searchQuery, page);
-//       renderGallery(data.hits);
-//       simpleLightbox.refresh();
-//     }
-//   catch (error) {
-//     Notiflix.Notify.failure(error.message);
-//   }
-//     console.log(page, searchQuery)
+  try {
+    const data = await fetchImage(searchQuery, page);
+      renderGallery(data.hits);
+      simpleLightbox.refresh();
+    }
+  catch (error) {
+    Notiflix.Notify.failure(error.message);
+  }
+    console.log(page, searchQuery)
 
-// }
+}
 
 function renderGallery(images) {
   gallery.innerHTML = images.map(image => `
