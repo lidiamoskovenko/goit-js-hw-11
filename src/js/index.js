@@ -8,7 +8,6 @@ import OnlyScrollbar from 'only-scrollbar';
 const registerForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
-const message = document.querySelector('.message');
 
 let page = 1;
 let searchQuery = '';
@@ -32,10 +31,10 @@ async function createImgCards(event) {
     }
     renderGallery(data.hits);
     simpleLightbox.refresh(); 
-    let galleryScrollbar = new OnlyScrollbar(gallery,{ damping: 0.8,
-      eventContainer: window,
-      mode: 'free'})
-    galleryScrollbar.refresh(); 
+    // let galleryScrollbar = new OnlyScrollbar(gallery,{ damping: 0.8,
+    //   eventContainer: window,
+    //   mode: 'free'})
+    // galleryScrollbar.refresh(); 
 
     Notiflix.Notify.info(`We found ${data.totalHits} results`);
     loadMoreBtn.style.display = 'block';
