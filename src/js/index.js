@@ -3,6 +3,7 @@ import { fetchImage } from "./api";
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
+import OnlyScrollbar from 'only-scrollbar';
 
 const registerForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -13,9 +14,8 @@ let page = 1;
 let searchQuery = '';
 gallery.innerHTML = '';
 let simpleLightbox = new SimpleLightbox ('.photo-card a');
-
 registerForm.addEventListener('submit', createImgCards);
-loadMoreBtn.addEventListener('click', onMoresearch);
+// loadMoreBtn.addEventListener('click', onMoresearch);
 
 async function createImgCards(event) {
   event.preventDefault();
@@ -32,26 +32,32 @@ async function createImgCards(event) {
     }
     renderGallery(data.hits);
     simpleLightbox.refresh(); 
+    let galleryScrollbar = new OnlyScrollbar(gallery,{ damping: 0.8,
+      eventContainer: window,
+      mode: 'free'})
+    galleryScrollbar.refresh(); 
+
     Notiflix.Notify.info(`We found ${data.totalHits} results`);
     loadMoreBtn.style.display = 'block';
   } catch (error) {
     Notiflix.Notify.failure(error.message);
+    console.log(error.message);
   }
 }
-async function onMoresearch(event) {
-  page +=1;
+// async function onMoresearch(event) {
+//   page +=1;
 
-  try {
-    const data = await fetchImage(searchQuery, page);
-      renderGallery(data.hits);
-      simpleLightbox.refresh();
-    }
-  catch (error) {
-    Notiflix.Notify.failure(error.message);
-  }
-    console.log(page, searchQuery)
+//   try {
+//     const data = await fetchImage(searchQuery, page);
+//       renderGallery(data.hits);
+//       simpleLightbox.refresh();
+//     }
+//   catch (error) {
+//     Notiflix.Notify.failure(error.message);
+//   }
+//     console.log(page, searchQuery)
 
-}
+// }
 
 function renderGallery(images) {
   gallery.innerHTML = images.map(image => `
