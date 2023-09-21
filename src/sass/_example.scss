@@ -9,7 +9,6 @@ body {
     margin-left: 33%;
 }
 .gallery{
-    height: 100%;
     display:flex;
     flex-wrap: wrap;
     gap:20px;
@@ -17,7 +16,7 @@ body {
 
 }
 .photo-card{
-    flex-basis: calc((100% - 100px) / 5)
+    flex-basis: calc((100% - 100px) / 5);
 }
 img{
     max-width: 100%;
