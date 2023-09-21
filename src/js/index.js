@@ -56,16 +56,13 @@ async function onMoresearch(event) {
     const totalHits = data.totalHits / NewApi._perPage;
 
     if( NewApi.page > totalHits ){
-      newPerPage=(data.totalHits - totalHits* NewApi._perPage);
+      NewApi.newPerPage=(data.totalHits - totalHits*40);
       Notiflix.Notify.info('We are sorry, but you have reached the end of search results.');
       loadMoreBtn.style.display = 'none';
-      console.log(newPerPage);
-
     } 
   }
   catch (error) {
     Notiflix.Notify.failure(error.message);
-    console.log(error.message);
 
   }
 }
