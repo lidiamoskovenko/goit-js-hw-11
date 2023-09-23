@@ -35,9 +35,10 @@ resetPage(){
     set query (newQuery) {
         this.searchQuery = newQuery;}
 
-        get perPage(){
-            return _perPage;
-        }
+        get perPage() {
+            return this._perPage;
+          }
+          
         set perPage (newPerPage) {
             this._perPage = newPerPage;}
           
