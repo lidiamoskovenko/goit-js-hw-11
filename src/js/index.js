@@ -2,13 +2,13 @@
 import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
-import newApi from './api.js'
+import NewApi from './api.js'
 
 const registerForm = document.querySelector('.search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const gallery = document.querySelector('.gallery');
 
-const NewApi = new newApi();
+const newApi = new NewApi();
 
 gallery.innerHTML = '';
 let simpleLightbox;
@@ -17,15 +17,15 @@ loadMoreBtn.addEventListener('click', onMoresearch);
 
 async function createImgCards(event) {
   event.preventDefault();
-  NewApi.query = event.currentTarget.elements.searchQuery.value.trim();
-  NewApi.incrementPage();
+  newApi.query = event.currentTarget.elements.searchQuery.value.trim();
+  newApi.resetPage();
 
-  if (NewApi.query === '') {
+  if (newApi.query === '') {
     Notiflix.Notify.info('Please enter a search query.');
     return;
   }
   try {
-    const data = await NewApi.fetchImage();
+    const data = await newApi.fetchImage();
 
     if (data.hits.length === 0) {
       Notiflix.Notify.info('Sorry, there are no images matching your search query. Please try again.');
@@ -49,14 +49,14 @@ async function onMoresearch(event) {
   loadMoreBtn.style.display = 'block';
 
   try {
-    const data = await  NewApi.fetchImage();
+    const data = await  newApi.fetchImage();
     renderGallery(data.hits);
     simpleLightbox.refresh();
 
-    const totalHits = data.totalHits / NewApi._perPage;
+    const totalHits = Math.ceil(data.totalHits / newApi._perPage);
 
-    if( NewApi.page > totalHits ){
-      NewApi.newPerPage=(data.totalHits - totalHits*40);
+    if( newApi.page > totalHits ){
+      newApi.newPerPage=(data.totalHits - totalHits*40);
       Notiflix.Notify.info('We are sorry, but you have reached the end of search results.');
       loadMoreBtn.style.display = 'none';
     } 

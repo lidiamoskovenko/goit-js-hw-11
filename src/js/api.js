@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export default 
-class newApi{
+class NewApi{
     constructor () {
         this.searchQuery = '';
         this.page = 1;
